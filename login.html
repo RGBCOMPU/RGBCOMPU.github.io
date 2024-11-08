@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RGBCOMPU</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h2 id="formTitle">Iniciar Sesión</h2>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Ingresar</button>
+    </form>
+    <button onclick="toggleForm()">Registrar Nuevo Usuario</button>
+</body>
+</html>
+
+
+  <style>
+    /* Estilos básicos para la página de autenticación */
+    .auth-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .auth-form h3 {
+      text-align: center;
+    }
+
+    .auth-form label, .auth-form input, .auth-form button {
+      width: 100%;
+      padding: 8px;
+    }
+
+    .auth-form button {
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+    }
+
+    .auth-form button:hover {
+      background-color: #004a99;
+    }
+  </style>
+
+</body>
+</html>
