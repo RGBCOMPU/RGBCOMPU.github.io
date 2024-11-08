@@ -52,7 +52,6 @@ h2 {
     color: #00aaff;
 }
 
-/* Cuadro de búsqueda centrado */
 .search-box {
     flex-grow: 1;
     display: flex;
@@ -73,7 +72,6 @@ h2 {
     color: #777;
 }
 
-/* Cuadro de login */
 .login-box {
     display: flex;
     align-items: center;
@@ -122,7 +120,6 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Contenedor de computadoras */
 .computers {
     display: flex;
     justify-content: space-between;
@@ -172,7 +169,7 @@ button:hover {
     background-color: #0077cc;
 }
 
-/* Área de entrada del usuario */
+/* entrada del usuario */
 .user-input {
     text-align: center;
     margin-top: 40px;
@@ -203,7 +200,7 @@ textarea::placeholder {
 }
 
 
-/* Estilos generales para el pie de página */
+/* pie de página */
 footer {
     background-color: #333;
     color: #fff;
@@ -229,7 +226,7 @@ footer {
 .footer-section h4 {
     font-size: 16px;
     margin-bottom: 10px;
-    color: #00aaff; /* Color lavanda */
+    color: #00aaff;
 }
 
 .social-media h4{
@@ -254,17 +251,15 @@ footer {
 }
 
 .footer-section ul li a:hover {
-    color: #00aaff; /* Color lavanda al pasar el cursor */
+    color: #00aaff; 
 }
 
-/* Estilos para la sección del logo */
 .logo-section img {
     max-width: 100px;
     height: auto;
     margin-bottom: 10px;
 }
 
-/* Estilos para la sección de redes sociales */
 .social-media ul {
     display: flex;
     list-style: none;
@@ -282,10 +277,9 @@ footer {
 }
 
 .social-media ul li a:hover {
-    color: #00aaff; /* Cambia a lavanda al pasar el cursor */
+    color: #00aaff; 
 }
 
-/* Estilos para los métodos de pago */
 .payment-methods ul {
     display: flex;
     list-style: none;
@@ -303,7 +297,6 @@ footer {
     border-radius: 5px;
 }
 
-/* Estilos para el texto de copyright */
 .footer-bottom {
     text-align: center;
     margin-top: 20px;
@@ -316,21 +309,18 @@ footer {
 }
 
 .footer-section.logo-section ul li:nth-child(1) img{
-    border-radius: 100px; /* Bordes ligeramente redondeados, opcional */
+    border-radius: 100px; 
 }
 
-/* Primer medio de pago */
 .footer-section.payment-methods ul li:nth-child(1) img {
     max-width: 400px;
     height: 60px;
 }
-/* Segundo medio de pago */
 .footer-section.payment-methods ul li:nth-child(2) img {
     max-width: 200px;
     height: 60px;
 }
 
-/* Estilos para el formulario de inicio de sesión y registro */
 form {
     max-width: 400px;
     margin: 20px auto;
