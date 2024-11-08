@@ -66,27 +66,17 @@ function handleLogin(event) {
     }
 }
 
-// Verificar si hay un usuario autenticado al cargar la página principal
-window.onload = function() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+// Datos iniciales de stock y precios (si no existen en localStorage)
+if (!localStorage.getItem('computers')) {
+    const initialComputers = [
+        { name: "Computador 1", quantity: 5, price: 6000000 },
+        { name: "Computador 2", quantity: 3, price: 8000000 },
+        { name: "Computador 3", quantity: 7, price: 7200000 }
+    ];
+    localStorage.setItem('computers', JSON.stringify(initialComputers));
+}
 
-    if (loggedInUser) {
-        document.getElementById('welcomeMessage').style.display = 'block';
-        document.getElementById('username').textContent = loggedInUser.username;
-    }
-};
-
-
-//DESDE AQUI
-
-// Ejemplo de stock de computadoras
-const stock = [
-    { name: "Computador 1", quantity: 5 },
-    { name: "Computador 2", quantity: 3 },
-    { name: "Computador 3", quantity: 7 },
-];
-
-// Mostrar el stock si el usuario es administrador
+// Función para mostrar el stock y permitir edición si el usuario es administrador
 function displayAdminStock() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser && loggedInUser.role === 'admin') {
@@ -94,24 +84,52 @@ function displayAdminStock() {
         
         const stockList = document.getElementById('stock-list');
         stockList.innerHTML = ''; // Limpiar el contenido previo
-        stock.forEach(item => {
+        const computers = JSON.parse(localStorage.getItem('computers'));
+
+        computers.forEach((item, index) => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${item.name}: ${item.quantity} unidades disponibles`;
+            listItem.innerHTML = `
+                <strong>${item.name}</strong><br>
+                Stock: <input type="number" value="${item.quantity}" min="0" id="stock-${index}">
+                <button onclick="updateStock(${index})">Actualizar Stock</button><br>
+                Precio: $<input type="number" value="${item.price}" min="0" step="50000" id="price-${index}">
+                <button onclick="updatePrice(${index})">Actualizar Precio</button>
+            `;
             stockList.appendChild(listItem);
         });
     }
 }
 
-// Función para mostrar u ocultar los botones de inicio/cierre de sesión
+// Función para actualizar el stock en localStorage
+function updateStock(index) {
+    const newStock = parseInt(document.getElementById(`stock-${index}`).value, 10);
+    const computers = JSON.parse(localStorage.getItem('computers'));
+    computers[index].quantity = newStock;
+    localStorage.setItem('computers', JSON.stringify(computers));
+    alert(`Stock de ${computers[index].name} actualizado a ${newStock} unidades.`);
+}
+
+// Función para actualizar el precio en localStorage
+function updatePrice(index) {
+    const newPrice = parseInt(document.getElementById(`price-${index}`).value, 10);
+    const computers = JSON.parse(localStorage.getItem('computers'));
+    computers[index].price = newPrice;
+    localStorage.setItem('computers', JSON.stringify(computers));
+    alert(`Precio de ${computers[index].name} actualizado a $${newPrice}.`);
+}
+
+// Función para actualizar el estado de los botones de sesión
 function updateLoginStatus() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
         document.getElementById('loginButton').style.display = 'none';
         document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('perfilButton').style.display = 'inline-block';
         displayAdminStock(); // Mostrar stock si es admin
     } else {
         document.getElementById('loginButton').style.display = 'inline-block';
         document.getElementById('logoutButton').style.display = 'none';
+        document.getElementById('perfilButton').style.display = 'none';
     }
 }
 
@@ -128,20 +146,6 @@ function logout() {
 window.onload = function() {
     updateLoginStatus();
 };
-
-function updateLoginStatus() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (loggedInUser) {
-        document.getElementById('loginButton').style.display = 'none';
-        document.getElementById('logoutButton').style.display = 'inline-block';
-        document.getElementById('perfilButton').style.display = 'inline-block';
-        displayAdminStock(); // Mostrar stock si es admin
-    } else {
-        document.getElementById('loginButton').style.display = 'inline-block';
-        document.getElementById('logoutButton').style.display = 'none';
-        document.getElementById('perfilButton').style.display = 'none';
-    }
-}
 
 // Función para cargar los datos del perfil en perfil.html
 function loadProfile() {
