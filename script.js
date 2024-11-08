@@ -131,6 +131,7 @@ function displayProducts() {
         const productDiv = document.createElement('div');
         productDiv.className = 'computer';
         productDiv.innerHTML = `
+            <img src="./Imagenes/Pc${index + 1}.jpg" alt="${computer.name}" class="computer-image" height="300px">
             <h3>${computer.name}</h3>
             <p>Características:<br>Procesador: Core i7<br>RAM: 16GB<br>GPU: RTX 3070</p>
             <p id="product-price-${index}">Precio: $${computer.price.toLocaleString()}</p>
