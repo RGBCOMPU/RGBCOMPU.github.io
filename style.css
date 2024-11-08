@@ -356,18 +356,6 @@ form {
     color: #fff;
   }
   
-  button {
-    background-color: #00aaff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    width: 100%;
-  }
-  
   button:hover {
     background-color: #0077cc;
   }
