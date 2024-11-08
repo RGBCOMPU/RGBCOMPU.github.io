@@ -91,9 +91,9 @@ function displayAdminStock() {
             listItem.innerHTML = `
                 <strong>${item.name}</strong><br>
                 Stock: <input type="number" value="${item.quantity}" min="0" id="stock-${index}">
-                <button onclick="updateStock(${index})">Actualizar Stock</button><br>
+                <button onclick="updateStock(${index})" style="font-size: 12px; padding: 5px 10px;">Actualizar Stock</button><br>
                 Precio: $<input type="number" value="${item.price}" min="0" step="50000" id="price-${index}">
-                <button onclick="updatePrice(${index})">Actualizar Precio</button>
+                <button onclick="updatePrice(${index})" style="font-size: 12px; padding: 5px 10px;">Actualizar Precio</button>
             `;
             stockList.appendChild(listItem);
         });
@@ -109,14 +109,43 @@ function updateStock(index) {
     alert(`Stock de ${computers[index].name} actualizado a ${newStock} unidades.`);
 }
 
-// Función para actualizar el precio en localStorage
+// Función para actualizar el precio en localStorage y en la página principal
 function updatePrice(index) {
     const newPrice = parseInt(document.getElementById(`price-${index}`).value, 10);
     const computers = JSON.parse(localStorage.getItem('computers'));
     computers[index].price = newPrice;
     localStorage.setItem('computers', JSON.stringify(computers));
     alert(`Precio de ${computers[index].name} actualizado a $${newPrice}.`);
+
+    // Actualizar el precio en la sección de productos
+    document.getElementById(`product-price-${index}`).textContent = `Precio: $${newPrice.toLocaleString()}`;
 }
+
+// Función para mostrar los productos en la página principal
+function displayProducts() {
+    const productsContainer = document.getElementById('products-container');
+    const computers = JSON.parse(localStorage.getItem('computers'));
+
+    productsContainer.innerHTML = '';
+    computers.forEach((computer, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.className = 'computer';
+        productDiv.innerHTML = `
+            <img src="./Imagenes/Pc${index + 1}.jpg" alt="${computer.name}" class="computer-image" height="300px">
+            <h3>${computer.name}</h3>
+            <p>Características:<br>Procesador: Core i7<br>RAM: 16GB<br>GPU: RTX 3070</p>
+            <p id="product-price-${index}">Precio: $${computer.price.toLocaleString()}</p>
+            <button onclick="handlePurchase()">Comprar</button>
+        `;
+        productsContainer.appendChild(productDiv);
+    });
+}
+
+// Llamar a displayProducts en la página principal para mostrar los productos
+window.onload = function() {
+    updateLoginStatus();
+    displayProducts(); // Llamada para cargar los productos en la página principal
+};
 
 // Función para actualizar el estado de los botones de sesión
 function updateLoginStatus() {
@@ -141,11 +170,6 @@ function logout() {
     document.getElementById('admin-stock').style.display = 'none';
     window.location.href = 'index.html'; // Redirigir a la página principal
 }
-
-// Llamar a updateLoginStatus al cargar la página
-window.onload = function() {
-    updateLoginStatus();
-};
 
 // Función para cargar los datos del perfil en perfil.html
 function loadProfile() {
