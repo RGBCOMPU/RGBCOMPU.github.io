@@ -10,7 +10,7 @@ function handlePurchase() {
     alert("Gracias por su compra, nos comunicaremos con usted para realizar el envío.");
 }
 
-// Inicialización de usuarios predeterminados
+// Usuarios principales
 if (!localStorage.getItem('users')) {
     const defaultUsers = [
         { username: 'admin', password: 'admin123', role: 'admin' },
@@ -19,7 +19,7 @@ if (!localStorage.getItem('users')) {
     localStorage.setItem('users', JSON.stringify(defaultUsers));
 }
 
-// Alternar entre formularios de inicio de sesión y registro
+// para poder cambair inicio de sesión y registro
 function toggleForm() {
     const formTitle = document.getElementById('formTitle');
     const loginForm = document.getElementById('loginForm');
@@ -29,7 +29,7 @@ function toggleForm() {
     loginForm.onsubmit = isLogin ? handleRegister : handleLogin;
 }
 
-// Manejar el registro de un nuevo usuario
+// nuevo usuario
 function handleRegister(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -48,7 +48,7 @@ function handleRegister(event) {
     }
 }
 
-// Manejar el inicio de sesión
+// inicio de sesión
 function handleLogin(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -66,7 +66,7 @@ function handleLogin(event) {
     }
 }
 
-// Datos iniciales de stock y precios (si no existen en localStorage)
+// Stock y precios
 if (!localStorage.getItem('computers')) {
     const initialComputers = [
         { name: "Computador 1", quantity: 5, price: 6000000 },
@@ -76,7 +76,7 @@ if (!localStorage.getItem('computers')) {
     localStorage.setItem('computers', JSON.stringify(initialComputers));
 }
 
-// Función para mostrar el stock y permitir edición si el usuario es administrador
+// Mostrar el stock solo al admin
 function displayAdminStock() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser && loggedInUser.role === 'admin') {
@@ -100,7 +100,7 @@ function displayAdminStock() {
     }
 }
 
-// Función para actualizar el stock en localStorage
+// Actualizar el stock
 function updateStock(index) {
     const newStock = parseInt(document.getElementById(`stock-${index}`).value, 10);
     const computers = JSON.parse(localStorage.getItem('computers'));
@@ -109,7 +109,7 @@ function updateStock(index) {
     alert(`Stock de ${computers[index].name} actualizado a ${newStock} unidades.`);
 }
 
-// Función para actualizar el precio en localStorage y en la página principal
+// Actualizar el precio
 function updatePrice(index) {
     const newPrice = parseInt(document.getElementById(`price-${index}`).value, 10);
     const computers = JSON.parse(localStorage.getItem('computers'));
@@ -117,11 +117,10 @@ function updatePrice(index) {
     localStorage.setItem('computers', JSON.stringify(computers));
     alert(`Precio de ${computers[index].name} actualizado a $${newPrice}.`);
 
-    // Actualizar el precio en la sección de productos
+    // Actualizar el precio en la pagina
     document.getElementById(`product-price-${index}`).textContent = `Precio: $${newPrice.toLocaleString()}`;
 }
 
-// Función para mostrar los productos en la página principal
 function displayProducts() {
     const productsContainer = document.getElementById('products-container');
     const computers = JSON.parse(localStorage.getItem('computers'));
@@ -141,13 +140,11 @@ function displayProducts() {
     });
 }
 
-// Llamar a displayProducts en la página principal para mostrar los productos
 window.onload = function() {
     updateLoginStatus();
-    displayProducts(); // Llamada para cargar los productos en la página principal
+    displayProducts(); 
 };
 
-// Función para actualizar el estado de los botones de sesión
 function updateLoginStatus() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
@@ -162,7 +159,7 @@ function updateLoginStatus() {
     }
 }
 
-// Función para cerrar sesión
+// cerrar sesión
 function logout() {
     localStorage.removeItem('loggedInUser');
     alert('Has cerrado sesión.');
@@ -171,7 +168,6 @@ function logout() {
     window.location.href = 'index.html'; // Redirigir a la página principal
 }
 
-// Función para cargar los datos del perfil en perfil.html
 function loadProfile() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
@@ -179,7 +175,7 @@ function loadProfile() {
     }
 }
 
-// Función para actualizar el perfil del usuario
+// Actualizar el perfil
 function updateProfile(event) {
     event.preventDefault();
 
@@ -188,7 +184,7 @@ function updateProfile(event) {
     let users = JSON.parse(localStorage.getItem('users')) || [];
     let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-    // Actualiza el usuario en el listado de usuarios
+
     const userIndex = users.findIndex(user => user.username === loggedInUser.username);
     if (userIndex !== -1) {
         users[userIndex].username = newUsername;
@@ -196,10 +192,10 @@ function updateProfile(event) {
             users[userIndex].password = newPassword;
         }
 
-        // Guarda los cambios en localStorage
+       
         localStorage.setItem('users', JSON.stringify(users));
         
-        // Actualiza el usuario en localStorage para mantener la sesión
+      
         loggedInUser.username = newUsername;
         if (newPassword) {
             loggedInUser.password = newPassword;
@@ -207,11 +203,10 @@ function updateProfile(event) {
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
 
         alert('Perfil actualizado exitosamente.');
-        window.location.href = 'index.html'; // Redirigir a la página principal
+        window.location.href = 'index.html'; 
     }
 }
 
-// Llamar a loadProfile al cargar perfil.html
 if (window.location.pathname.includes('perfil.html')) {
     window.onload = loadProfile;
 }
