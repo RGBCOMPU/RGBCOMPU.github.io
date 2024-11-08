@@ -91,9 +91,9 @@ function displayAdminStock() {
             listItem.innerHTML = `
                 <strong>${item.name}</strong><br>
                 Stock: <input type="number" value="${item.quantity}" min="0" id="stock-${index}">
-                <button onclick="updateStock(${index})" style="font-size: 12px; padding: 5px 10px;">Actualizar Stock</button><br>
+                <button onclick="updateStock(${index})" style="font-size: 10px; padding: 4px 8px;">Actualizar Stock</button><br>
                 Precio: $<input type="number" value="${item.price}" min="0" step="50000" id="price-${index}">
-                <button onclick="updatePrice(${index})" style="font-size: 12px; padding: 5px 10px;">Actualizar Precio</button>
+                <button onclick="updatePrice(${index})" style="font-size: 10px; padding: 4px 8px;">Actualizar Precio</button>
             `;
             stockList.appendChild(listItem);
         });
